@@ -1,0 +1,64 @@
+<%- include("header") -%>
+
+<div class="box" id="heading">
+    <h1><%= listTitle %></h1>
+</div>
+
+<div class="box">
+
+    <form class="item" action="/" method="POST">
+        <input required type="text" name="newItem" placeholder="New Item" autocomplete="off">
+        <Button type="submit">➕</Button>
+    </form>
+
+    <h2>Todo</h2>
+    <% newListItems.forEach((item) => {%>
+    <%if(item.checked !== true){%>
+    <div class="item item-list">
+        <div>
+            <form action="/update" method="POST">
+                <div class="items">
+                    <input type="checkbox" onChange=" this.form.submit()">
+                    <input type="hidden" name="itemId" value="<%= item._id%>" />
+                    <input type="hidden" name="checked" value="<%= item.checked%>" />
+                    <p><%= item.title %></p>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form action="/delete" method="POST"> <button class="delete-button" type="submit" name="deleteItem"
+                    value="<%= item._id %>">❌
+            </form>
+        </div>
+    </div>
+    <%}%>
+    <% }) %>
+</div>
+
+<div class="box">
+    <h2>Completed</h2>
+    <% newListItems.forEach((item) => {%>
+    <%if(item.checked === true){%>
+    <div class="item item-list">
+        <div>
+            <form action="/update" method="POST">
+                <div class="items">
+                    <input type="checkbox" checked onChange=" this.form.submit()">
+                    <input type="hidden" name="itemId" value="<%= item._id%>" />
+                    <input type="hidden" name="checked" value="<%= item.checked%>" />
+                    <p style="text-decoration: line-through;text-decoration-color: green;"><%= item.title %></p>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form action="/delete" method="POST"> <button class="delete-button" type="submit" name="deleteItem"
+                    value="<%= item._id %>">❌
+            </form>
+        </div>
+    </div>
+    <%}%>
+    <% }) %>
+</div>
+
+
+<%- include("footer") -%>

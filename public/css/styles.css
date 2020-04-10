@@ -1,0 +1,143 @@
+body {
+  background-color: #e4e9fd;
+  background-image: -webkit-linear-gradient(65deg, red 50%, black 50%);
+  min-height: 800px;
+  font-family: 'helvetica neue';
+  width: 100%;
+  margin: auto;
+}
+
+h1 {
+  color: #fff;
+  padding: 5px;
+}
+
+.box {
+  max-width: 500px;
+  margin: 50px auto;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+
+#heading {
+  background-color: red;
+  text-align: center;
+}
+
+.item {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.item:last-child {
+  border-bottom: 0;
+}
+
+.item-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+input:checked + p {
+  text-decoration: line-through;
+  text-decoration-color: green;
+}
+
+input[type='checkbox'] {
+  margin: 10px;
+}
+
+h2 {
+  padding: 5px;
+  margin: 10px;
+}
+
+p {
+  margin: 0;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 200;
+  color: #00204a;
+  width: 190px;
+  word-wrap: break-word;
+}
+
+@media (min-width: 1024px) {
+  p {
+    width: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  p {
+    width: 300px;
+  }
+}
+
+form.item {
+  text-align: center;
+  margin-left: 20px;
+}
+
+button {
+  /* max-height: 1.3em;
+  width: 1.3em;
+  border-radius: 50%;
+  border-color: transparent;
+  background-color: black;
+  color: #fff;
+  font-size: 30px;
+  padding-bottom: 6px;
+  border-width: 0; */
+  border: none;
+  background-color: transparent;
+  margin: 10px;
+}
+
+button.delete-button {
+  /* max-height: 1.2em;
+  width: 1.2em;
+  font-size: 20px;
+  background-color: red;
+  color: #fff; */
+  border: none;
+  background-color: transparent;
+  margin: 10px;
+}
+
+input[type='text'] {
+  text-align: center;
+  height: 60px;
+  top: 10px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  font-weight: 200;
+  width: 313px;
+}
+
+input[type='text']:focus {
+  outline: none;
+  box-shadow: inset 0 -3px 0 0 black;
+}
+
+::placeholder {
+  color: grey;
+  opacity: 1;
+}
+
+footer {
+  color: white;
+  text-align: center;
+  padding-bottom: 20px;
+}
