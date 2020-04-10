@@ -1,10 +1,10 @@
 body {
-  background-color: #e4e9fd;
-  background-image: -webkit-linear-gradient(to right, #000428, #004e92);
+  background-image: linear-gradient(to right, #000428, #004e92);
   min-height: 800px;
   font-family: 'helvetica neue';
   width: 100%;
   margin: auto;
+  color: lightgray;
 }
 
 h1 {
