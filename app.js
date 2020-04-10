@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
 
             } else {
                 res.render("list", {
-                    listTitle: "ToDoNaaZ", newListItems: foundItems
+                    listTitle: "EasyToDo", newListItems: foundItems
                 })
 
             }
