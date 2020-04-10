@@ -12,7 +12,7 @@ app.use(express.static('public'))
 
 const uri = process.env.ATLAS_URI_TODO;
 
-mongoose.connect(uri || 'mongodb://localhost:27017/todonaaz', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
 
 const connection = mongoose.connection;
 connection.once('open', () => {
