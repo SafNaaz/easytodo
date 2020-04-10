@@ -8,7 +8,7 @@ body {
 }
 
 h1 {
-  color: #fff;
+  color: lightgray;
   padding: 5px;
 }
 
@@ -21,7 +21,7 @@ h1 {
 }
 
 #heading {
-  background-color: lightgray;
+  background-color: black;
   text-align: center;
 }
 
@@ -67,7 +67,7 @@ p {
   padding: 10px;
   font-size: 20px;
   font-weight: 200;
-  color: #00204a;
+  color: lightgray;
   width: 190px;
   word-wrap: break-word;
 }
@@ -94,7 +94,7 @@ button {
   width: 1.3em;
   border-radius: 50%;
   border-color: transparent;
-  background-color: lightgrey;
+  background-color: lightgray;
   color: #fff;
   font-size: 30px;
   padding-bottom: 6px;
