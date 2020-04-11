@@ -1,35 +1,77 @@
 body {
   background-image: linear-gradient(to right, #000428, #004e92);
-  min-height: 800px;
   font-family: 'helvetica neue';
   width: 100%;
-  margin: auto;
+  margin: 0 auto;
   color: lightgray;
+  max-width: 850px;
+  max-height: 200px;
 }
 
 h1 {
   color: lightgray;
   padding: 5px;
+  box-shadow: 5px 5px 15px 0px turquoise;
+}
+
+h1.auth {
+  text-align: center;
+}
+.title {
+  color: lightgray;
+  text-decoration: none;
+  outline: 0;
+  border: none;
+}
+.title:hover {
+  text-decoration: none;
 }
 
 .box {
-  max-width: 500px;
-  margin: 50px auto;
+  margin: 20px 10px;
   background: black;
-  border-radius: 5px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.new-item {
+  box-shadow: 5px 5px 15px -5px yellow;
+}
+
+.todo {
+  box-shadow: 5px 5px 15px -5px red;
+}
+
+.completed {
+  box-shadow: 5px 5px 15px -5px lawngreen;
+  margin-bottom: 50px;
+}
+
+.userinput-list {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.userinput {
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.userinput a {
+  color: lightgray;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.userinput button {
+  color: lightgray;
 }
 
 #heading {
+  margin: 0;
   background-color: black;
   text-align: center;
-}
-
-.item {
-  min-height: 70px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #f1f1f1;
 }
 
 .item:last-child {
@@ -48,6 +90,10 @@ h1 {
   align-items: center;
 }
 
+.home {
+  justify-content: space-around;
+}
+
 input:checked + p {
   text-decoration: line-through;
   text-decoration-color: green;
@@ -58,35 +104,40 @@ input[type='checkbox'] {
 }
 
 h2 {
-  padding: 5px;
-  margin: 10px;
+  padding: 5px 0 5px;
+  margin: 10px 10px 0;
 }
 
 p {
-  margin: 0;
+  margin: 0 auto;
   padding: 10px;
   font-size: 20px;
   font-weight: 200;
   color: lightgray;
-  width: 190px;
+  width: 200px;
   word-wrap: break-word;
+}
+
+@media (min-width: 350px) {
+  p {
+    width: 230px;
+  }
 }
 
 @media (min-width: 1024px) {
   p {
-    width: 400px;
+    width: 600px;
   }
 }
 
 @media (min-width: 768px) {
   p {
-    width: 300px;
+    width: 400px;
   }
 }
 
 form.item {
   text-align: center;
-  margin-left: 20px;
 }
 
 button {
@@ -118,17 +169,60 @@ button.delete-button {
 input[type='text'] {
   text-align: center;
   height: 60px;
-  top: 10px;
   border: none;
   background: transparent;
+  color: lightgrey;
   font-size: 20px;
   font-weight: 200;
   width: 313px;
 }
 
-input[type='text']:focus {
+input[type='email'],
+input[type='password'] {
+  text-align: center;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: lightgrey;
+  font-size: 20px;
+  font-weight: 200;
+  width: 313px;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  color: lightgrey;
+}
+
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='password']:focus {
   outline: none;
-  box-shadow: inset 0 -3px 0 0 black;
+  color: lightgrey;
+}
+
+.userinput-list button {
+  border: none;
+  color: lightgray;
+  background-color: transparent;
+  margin: 10px;
+  font-size: 20px;
+}
+
+.item {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid darkgreen;
+}
+
+.todo .item {
+  border-top: 1px solid darkred;
+}
+
+.completed .item {
+  border-top: 1px solid darkgreen;
 }
 
 ::placeholder {
@@ -136,8 +230,19 @@ input[type='text']:focus {
   opacity: 1;
 }
 
-footer {
-  color: white;
+.footer {
+  max-width: 850px;
+  position: fixed;
   text-align: center;
-  padding-bottom: 20px;
+  margin: 15px auto 0;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: black;
+}
+
+.footer p {
+  padding-top: 12px;
+  font-size: 14px;
+  color: #fff;
 }

@@ -1,17 +1,16 @@
-<%- include("header") -%>
-
-<div class="box" id="heading">
-    <h1><%= listTitle %></h1>
+<%- include("partials/header") -%>
+<div class="box todo">
+    <div class="item item-list">
+        <p class="items" style="text-align: center;">Hello <%=username%></p>
+        <a class="items title" href="/logout">Logout</a>
+    </div>
 </div>
 
-<div class="box">
+<%- include("newItem") -%>
 
-    <form class="item" action="/" method="POST">
-        <input required type="text" name="newItem" placeholder="New Item" autocomplete="off">
-        <Button type="submit">➕</Button>
-    </form>
 
-    <h2>Todo</h2>
+<div class="box todo">
+    <h2 style="color: orangered">ToDo</h2>
     <% newListItems.forEach((item) => {%>
     <%if(item.checked !== true){%>
     <div class="item item-list">
@@ -35,11 +34,11 @@
     <% }) %>
 </div>
 
-<div class="box">
-    <h2>Completed</h2>
+<div class="box completed">
+    <h2 style="color:green">Completed</h2>
     <% newListItems.forEach((item) => {%>
     <%if(item.checked === true){%>
-    <div class="item item-list">
+    <div class=" item item-list">
         <div>
             <form action="/update" method="POST">
                 <div class="items">
@@ -58,7 +57,9 @@
     </div>
     <%}%>
     <% }) %>
+
 </div>
 
 
-<%- include("footer") -%>
+
+<%- include("partials/footer") -%>

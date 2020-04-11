@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+<h1 class="auth">Register</h1>
+
+
+<div class="box todo">
+  <h3 style="color:red;text-align: center;"><%=error%></h3>
+  <div class="userinput-list">
+
+    <!-- Makes POST request to /login route -->
+    <form action="/register" method="POST">
+      <div class="userinput">
+        <input required minlength="6" minlength="12" type="text" name="username" value="<%=username%>"
+          placeholder="Username">
+      </div>
+      <div class="userinput">
+        <input required minlength="8" minlength="20" type="email" name="email" value="<%=email%>" placeholder="Email">
+      </div>
+      <div class="userinput">
+        <input required minlength="8" minlength="12" type="password" name="password" placeholder="Password">
+      </div>
+      <div class="userinput">
+        <input required minlength="8" minlength="12" type="password" name="password1" placeholder="Retype Password">
+      </div>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</div>
+
+<div class="box completed">
+  <div class="userinput-list">
+    <div class="userinput">
+      <a class="" href="/auth/google" role="button">
+        Sign Up with Google
+      </a>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

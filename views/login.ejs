@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+<h1 class="auth">Login</h1>
+
+
+<div class="box todo">
+  <div class="userinput-list">
+    <!-- Makes POST request to /login route -->
+    <form action="/login" method="POST">
+      <div class="userinput">
+        <input required type="text" name="username" placeholder="Username">
+      </div>
+      <div class="userinput">
+        <input required type="password" name="password" placeholder="Password">
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+
+<div class="box completed">
+  <div class="userinput-list">
+    <div class="userinput">
+      <a class="" href="/auth/google" role="button">
+        Sign In with Google
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<%- include('partials/footer') %>
