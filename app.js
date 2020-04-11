@@ -104,7 +104,7 @@ passport.deserializeUser((id, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: '/auth/google/secrets'
+    callbackURL: 'https://easytodo.herokuapp.com/auth/google/secrets'
 },
     (accessToken, refreshToken, profile, cb) => {
         User.findOrCreate({ googleId: profile.id, username: profile.displayName }, (err, user) => {
