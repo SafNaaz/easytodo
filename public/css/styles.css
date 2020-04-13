@@ -1,5 +1,6 @@
 body {
-  background-image: linear-gradient(to right, #000428, #004e92);
+  /*background-image: linear-gradient(to right, #000428, #004e92);*/
+  background-color: #000000;
   font-family: 'Roboto', sans-serif;
   width: 100%;
   margin: 0 auto;
