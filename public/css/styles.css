@@ -152,6 +152,7 @@ button {
   padding-bottom: 6px;
   border-width: 0; */
   border: none;
+  outline: none;
   background-color: transparent;
   margin: 10px;
 }
@@ -163,6 +164,7 @@ button.delete-button {
   background-color: red;
   color: #fff; */
   border: none;
+  outline: none;
   background-color: transparent;
   margin: 10px;
 }
