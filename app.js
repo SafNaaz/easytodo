@@ -46,7 +46,13 @@ const itemsSchema = mongoose.Schema({
 
 const Item = mongoose.model("Item", itemsSchema);
 
+const userItemSchema = mongoose.Schema({
+    username: String,
+    items: [itemsSchema]
 
+})
+
+const UserItem = mongoose.model('UserItem', userItemSchema)
 
 
 const userSchema = new mongoose.Schema({
@@ -134,11 +140,11 @@ app.get('/', (req, res) => {
 app.get('/notes', (req, res) => {
     if (req.isAuthenticated()) {
 
-        Item.find()
+        UserItem.findOne({ username: req.user.username })
             .catch((err) => {
                 console.log(err)
-            }).then(foundItems => {
-                if (foundItems.length === 0) {
+            }).then(foundItem => {
+                if ((foundItem == null) || (foundItem.items == null || foundItem.items.length === 0)) {
 
                     const item1 = new Item({
                         title: "Welcome to Easy ToDo, The simplest one around 😉",
@@ -170,15 +176,24 @@ app.get('/notes', (req, res) => {
                         checked: true
                     })
 
-                    const defaultItems = [item1, item2, item3, item4, item5, item6];
-
-                    Item.insertMany(defaultItems)
-                        .catch((err) => {
-                            console.log(err)
-                        }).then(res.redirect('/notes'))
+                    UserItem.findOneAndUpdate({ username: req.user.username }, {
+                        $push: {
+                            items: {
+                                $each: [item1, item2, item3, item4, item5, item6]
+                            }
+                        }
+                    },
+                        { upsert: true }, (err) => {
+                            if (err) {
+                                console.log(err)
+                            } else {
+                                res.redirect('/notes')
+                            }
+                        }
+                    )
 
                 } else {
-                    res.render("list", { newListItems: foundItems, name: req.user.name })
+                    res.render("list", { newListItems: foundItem.items, name: req.user.name })
                 }
             })
     } else {
@@ -211,7 +226,7 @@ app.get('/auth/google',
 //         res.redirect('/notes');
 //     });
 
-app.get('/auth/google/easytodo',
+app.get('/auth/google/local',
     passport.authenticate('google'),
     (err, req, res, next) => {
         if (err.name === 'TokenError') {
@@ -260,10 +275,10 @@ app.post('/register', (req, res) => {
     if (validationError !== 'true') {
         res.render('register', { error: validationError, name: req.body.name, username: req.body.username })
     } else {
-        User.register({ username: req.body.username, name: req.body.name }, req.body.password, (err, user) => {
+        User.register({ username: req.body.username.trim(), name: req.body.name }, req.body.password, (err, user) => {
             if (err) {
                 if (err.name === 'UserExistsError') {
-                    User.findOne({ username: req.body.username }, (err, foundUser) => {
+                    User.findOne({ username: req.body.username.trim() }, (err, foundUser) => {
                         if (err) {
                             console.log(err)
                         }
@@ -353,19 +368,46 @@ app.post('/login', (req, res) => {
 })
 
 
+// app.post('/notes', (req, res) => {
+//     if (req.isAuthenticated()) {
+//         const itemTitle = req.body.newItem;
+
+//         const item = new Item({
+//             title: itemTitle,
+//             checked: false
+//         })
+
+
+//         item.save()
+//             .catch((err) => {
+//                 console.log(err)
+//             }).then(res.redirect('/notes'))
+//     } else {
+//         res.redirect('/')
+//     }
+// })
+
 app.post('/notes', (req, res) => {
     if (req.isAuthenticated()) {
         const itemTitle = req.body.newItem;
 
-        const item = new Item({
-            title: itemTitle,
-            checked: false
-        })
+        UserItem.findOneAndUpdate({ username: req.user.username }, {
+            $push: {
+                items: {
+                    title: itemTitle,
+                    checked: false
+                }
+            }
+        },
+            { upsert: true }, (err) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    res.redirect('/notes')
+                }
+            }
+        )
 
-        item.save()
-            .catch((err) => {
-                console.log(err)
-            }).then(res.redirect('/notes'))
     } else {
         res.redirect('/')
     }
@@ -374,10 +416,12 @@ app.post('/notes', (req, res) => {
 app.post("/delete", (req, res) => {
     if (req.isAuthenticated()) {
         const deleteItem = req.body.deleteItem;
-        Item.findByIdAndRemove(deleteItem)
-            .catch((err) => {
-                console.log(err)
-            }).then(res.redirect('/notes'))
+        UserItem.findOneAndUpdate({ username: req.user.username },
+            { $pull: { items: { _id: deleteItem } } }, (err) => {
+                if (err)
+                    console.log(err)
+                res.redirect('/notes')
+            })
     } else {
         res.redirect('/')
     }
@@ -388,11 +432,12 @@ app.post("/update", (req, res) => {
         let itemId = req.body.itemId;
         let checked = (req.body.checked === 'true')
 
-        Item.findOneAndUpdate({ _id: itemId }, { $set: { checked: !checked } })
-            .catch((err) => {
-                console.log(err)
+        UserItem.findOneAndUpdate({ username: req.user.username, items: { $elemMatch: { _id: itemId } } },
+            { $set: { 'items.$.checked': !checked } }, (err) => {
+                if (err)
+                    console.log(err)
+                res.redirect('/notes')
             })
-            .then(res.redirect('/notes'))
     } else {
         res.redirect('/')
     }
