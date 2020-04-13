@@ -215,16 +215,16 @@ input[type='password']:focus {
   min-height: 70px;
   display: flex;
   align-items: center;
-  border-top: 1px solid darkgreen;
+  /*border-top: 1px solid darkgreen;*/
 }
 
-.todo .item {
+/*.todo .item {
   border-top: 1px solid darkred;
-}
+}*/
 
-.completed .item {
+/*.completed .item {
   border-top: 1px solid darkgreen;
-}
+}*/
 
 ::placeholder {
   color: grey;
