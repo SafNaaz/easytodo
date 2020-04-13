@@ -98,7 +98,7 @@ passport.use(new LocalStrategy(User.authenticate()))
 //                     return done(err)
 //                 if (!user) {
 //                     console.log('no user found')
-//                     return done(null, false, { message: 'No User found, Please register' })
+//                     return done(null, false, { message: 'User not found, Please Register' })
 //                 }
 //                 var authenticate = new User.authenticate();
 //                 if (authenticate('username', 'password', (err, result) => {
@@ -109,7 +109,7 @@ passport.use(new LocalStrategy(User.authenticate()))
 
 //                     } if (result) {
 //                         console.log('incorrect password')
-//                         return done(null, false, { message: 'Incorrect password' })
+//                         return done(null, false, { message: 'Incorrect Password' })
 //                     }
 //                 }))
 //                     return done(null, user)
@@ -147,17 +147,17 @@ app.get('/notes', (req, res) => {
                 if ((foundItem == null) || (foundItem.items == null || foundItem.items.length === 0)) {
 
                     const item1 = new Item({
-                        title: "Welcome to Easy ToDo, The simplest one around 😉",
+                        title: "Welcome to Easy ToDo.. 🤘",
                         checked: false
                     })
 
                     const item2 = new Item({
-                        title: "Add New Item and Hit the ➕ button to add a ToDo",
+                        title: "Type New Item and Hit the ➕ button to add a ToDo",
                         checked: false
                     })
 
                     const item3 = new Item({
-                        title: "Tick the box to mark an item as completed and move to completed section below, remove the tick to move back",
+                        title: "Tick the box to mark an item as completed and move to completed section below",
                         checked: false
                     })
 
@@ -167,12 +167,12 @@ app.get('/notes', (req, res) => {
                     })
 
                     const item5 = new Item({
-                        title: "Delete all to see the tips again 😉",
+                        title: "Delete all items to see the tips again 😉",
                         checked: false
                     })
 
                     const item6 = new Item({
-                        title: "Remove the tick to move back to todo list",
+                        title: "Remove the tick to move back to ToDo list",
                         checked: true
                     })
 
@@ -242,29 +242,29 @@ app.get('/auth/google/easytodo',
 )
 
 app.get('/registrationErrorGoogle', (req, res) => {
-    res.render('login', { error: 'Account with same Email id already exists, Please login with Password', name: '', username: req.query.email })
+    res.render('login', { error: 'Account with same Email already exists, Please login with Password', name: '', username: req.query.email })
 })
 
 function validate(body) {
     if (body.username === body.password) {
-        return 'username and password cannot be same'
+        return 'Username and Password cannot be same'
     } else if (body.password !== body.password1) {
         return 'Please enter same password'
     }
 
     re = /[0-9]/;
     if (!re.test(body.password)) {
-        return 'password must contain atleast a number (0-9)!'
+        return 'Password must contain atleast one Number (0-9)!'
     }
 
     re = /[a-z]/;
     if (!re.test(body.password)) {
-        return 'password must contain atleast a lower case letter (a-z)!'
+        return 'Password must contain atleast one Lower case letter (a-z)!'
     }
 
     re = /[A-Z]/;
     if (!re.test(body.password)) {
-        return 'password must contain atleast an upper case letter (A-Z)!'
+        return 'Password must contain atleast one Upper case letter (A-Z)!'
     }
 
     return 'true';
@@ -283,9 +283,9 @@ app.post('/register', (req, res) => {
                             console.log(err)
                         }
                         if (!foundUser.googleId) {
-                            res.render('login', { error: 'User already exists with same Email, Please login with password.', username: req.body.username })
+                            res.render('login', { error: 'User already exists with same Email, Please login with Password.', username: req.body.username })
                         } else {
-                            res.render('login', { error: 'User already registered via Google, use Sign In with Google option', username: req.body.username })
+                            res.render('login', { error: "User already registered via Google, use 'Sign In with Google' option", username: req.body.username })
                         }
                     })
 
@@ -346,13 +346,13 @@ app.post('/login', (req, res) => {
 
                     res.render('login', { error: 'Incorrect Password', name: '', username: req.body.username })
                 } else if (info.name === 'IncorrectUsernameError') {
-                    res.render('register', { error: 'User not registered, please register using Email or Sign Up with Google', name: '', username: req.body.username })
+                    res.render('register', { error: "User not found, please 'Sign Up with Google' Or Register using Email", name: '', username: req.body.username })
                 } else {
                     User.findOne({ username: req.body.username }, (err, user) => {
                         if (err) {
                             console.log(err)
                         }
-                        res.render('login', { error: 'Account already registered with Google, Please use the Sign in with Google Option', name: '', username: req.body.username })
+                        res.render('login', { error: "Account already registered with Google, Please use the 'Sign in with Google' Option", name: '', username: req.body.username })
                     })
                 }
             }
