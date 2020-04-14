@@ -1,9 +1,18 @@
 <%- include('partials/header') %>
-<h1 class="auth"></h1>
 
+<div class="box google">
+  <h3 style="color:red;text-align: center;"><%=error%></h3>
+  <div class="userinput-list">
+    <div class="userinput">
+      <a class="" href="/auth/google" role="button">
+        Sign Up with Google
+      </a>
+    </div>
+  </div>
+</div>
 
 <div class="box todo">
-  <h3 style="color:red;text-align: center;"><%=error%></h3>
+
   <div class="userinput-list">
 
     <!-- Makes POST request to /login route -->
@@ -26,15 +35,7 @@
   </div>
 </div>
 
-<div class="box completed">
-  <div class="userinput-list">
-    <div class="userinput">
-      <a class="" href="/auth/google" role="button">
-        Sign Up with Google
-      </a>
-    </div>
-  </div>
-</div>
+
 
 <br><br>
 

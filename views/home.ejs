@@ -1,14 +1,32 @@
 <%- include('partials/header') %>
-<div class="box completed">
+<div class="box home-ad">
     <p>Welcome to the Easiest ToDo list App around</p>
     <p>Try it out and see <br><br>100% free storage. <br><br>All your data is Safe and Secure. </p>
 </div>
 
-<div class="box todo">
-    <div class="item item-list home userinput">
-        <button><a class="title" href="/login">Login</a></button>
+<div class="box home-box ">
+    <div class=" item-list home userinput">
 
-        <button><a class="title" href="/register">Register</a></button>
+        <a class="" href="/auth/google" role="button">
+            Sign In with Google
+        </a>
+
+        <!-- <button><a class="title" href="/login">Login</a></button>
+
+        <button><a class="title" href="/register">Register</a></button> -->
+    </div>
+</div>
+<div class="box home-box ">
+
+    <div class=" item-list home userinput">
+
+        <a class="" href="/emaillogin" role="button">Login with Email</a>
+    </div>
+</div>
+<div class="box home-box ">
+    <div class=" item-list home userinput">
+
+        <a class="" href="/register" role="button">Register</a>
     </div>
 </div>
 

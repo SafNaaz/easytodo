@@ -1,25 +1,9 @@
 <%- include('partials/header') %>
 
-<h1 class="auth"></h1>
 
 
-<div class="box todo">
-  <h3 style="color:red;text-align: center;"><%=error%></h3>
-  <div class="userinput-list">
-    <!-- Makes POST request to /login route -->
-    <form action="/login" method="POST">
-      <div class="userinput">
-        <input required type="email" name="username" placeholder="Email" value="<%=username%>">
-      </div>
-      <div class="userinput">
-        <input required type="password" name="password" placeholder="Password">
-      </div>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-</div>
-
-<div class="box completed">
+<h3 style="color:red;text-align: center;"><%=error%></h3>
+<div class="box google">
   <div class="userinput-list">
     <div class="userinput">
       <a class="" href="/auth/google" role="button">
@@ -28,6 +12,16 @@
     </div>
   </div>
 </div>
+<!-- 
+<div class="box google">
+  <div class="userinput-list">
+    <div class="userinput">
+      <a class="" href="/emaillogin" role="button">
+        Sign In with Email
+      </a>
+    </div>
+  </div>
+</div> -->
 
 <br><br>
 
