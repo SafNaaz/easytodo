@@ -252,7 +252,7 @@ app.get('/auth/google',
 //         res.redirect('/notes');
 //     });
 
-app.get('/auth/google/local',
+app.get('/auth/google/todo',
     passport.authenticate('google'),
     (err, req, res, next) => {
         if (err) {
