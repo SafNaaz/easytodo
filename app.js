@@ -123,9 +123,27 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.REDIRECT_URL
 },
     (accessToken, refreshToken, profile, cb) => {
-        User.findOrCreate({ googleId: profile.id, name: profile.displayName, username: profile._json.email }, (err, user) => {
-            return cb(err, user)
-        })
+        User.findOne({ username: profile._json.email })
+            .then((user, err) => {
+                if (err) {
+                    console.log(err)
+                }
+                if (!user) {
+                    User.findOrCreate({ username: profile._json.email, googleId: profile.id, name: profile.displayName }, (err, user) => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        return cb(err, user)
+                    })
+                } else {
+                    User.findOneAndUpdate({ username: profile._json.email }, { $set: { googleId: profile.id } }, { upsert: true }, (err, user) => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        return cb(err, user)
+                    })
+                }
+            })
     }
 ))
 
@@ -217,6 +235,14 @@ app.get('/register', (req, res) => {
     }
 })
 
+app.get('/emaillogin', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.redirect('/notes')
+    } else {
+        res.render('emaillogin', { error: '', username: '' })
+    }
+})
+
 app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] }))
 
@@ -226,24 +252,30 @@ app.get('/auth/google',
 //         res.redirect('/notes');
 //     });
 
-app.get('/auth/google/easytodo',
+app.get('/auth/google/local',
     passport.authenticate('google'),
     (err, req, res, next) => {
-        if (err.name === 'TokenError') {
-            res.redirect('/auth/google')
-        } else {
-            //console.log(err)
-            let email = encodeURIComponent(err.keyValue.username)
-            res.redirect('/registrationErrorGoogle?email=' + email)
+        if (err) {
+            if (err.name === 'TokenError') {
+                res.redirect('/auth/google')
+            } else if (err.name === 'InternalOAuthError') {
+                res.redirect('/auth/google')
+            } else {
+                console.log(err)
+                //     if (err.key && err.keyValue.username) {
+                //         var email = encodeURIComponent(err.keyValue.username)
+                //     }
+                //     res.redirect('/registrationErrorGoogle?email=' + email)
+            }
         }
     }, (req, res) => {
         res.redirect('/notes');
     }
 )
 
-app.get('/registrationErrorGoogle', (req, res) => {
-    res.render('login', { error: 'Account with same Email already exists, Please login with Password', name: '', username: req.query.email })
-})
+// app.get('/registrationErrorGoogle', (req, res) => {
+//     res.render('login', { error: 'Account with same Email already exists, Please login with Password', name: '', username: req.query.email })
+// })
 
 function validate(body) {
     if (body.username === body.password) {
@@ -283,7 +315,7 @@ app.post('/register', (req, res) => {
                             console.log(err)
                         }
                         if (!foundUser.googleId) {
-                            res.render('login', { error: 'User already exists with same Email, Please login with Password.', username: req.body.username })
+                            res.render('emaillogin', { error: 'User already exists with same Email, Please login with Password.', username: req.body.username })
                         } else {
                             res.render('login', { error: "User already registered via Google, use 'Sign In with Google' option", username: req.body.username })
                         }
@@ -344,7 +376,7 @@ app.post('/login', (req, res) => {
             if (info) {
                 if (info.name === 'IncorrectPasswordError') {
 
-                    res.render('login', { error: 'Incorrect Password', name: '', username: req.body.username })
+                    res.render('emaillogin', { error: 'Incorrect Password', name: '', username: req.body.username })
                 } else if (info.name === 'IncorrectUsernameError') {
                     res.render('register', { error: "User not found, please 'Sign Up with Google' Or Register using Email", name: '', username: req.body.username })
                 } else {
