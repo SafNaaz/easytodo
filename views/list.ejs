@@ -37,7 +37,17 @@
 </div>
 
 <div class="box completed">
-    <h2 style="color:green">Completed</h2>
+    <div class="completed-list">
+        <div class="items ">
+            <h2 style="color:green">Completed</h2>
+        </div>
+        <div class="items ">
+            <form action="/deleteAll" method="POST">
+                <button class="delete-all-button" type="submit">Clear All</button>
+            </form>
+
+        </div>
+    </div>
     <% newListItems.forEach((item) => {%>
     <%if(item.checked === true){%>
     <div class=" item item-list">
