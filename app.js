@@ -459,6 +459,19 @@ app.post("/delete", (req, res) => {
     }
 })
 
+app.post("/deleteAll", (req, res) => {
+    if (req.isAuthenticated()) {
+        UserItem.findOneAndUpdate({ username: req.user.username },
+            { $pull: { items: { checked: true } } }, (err) => {
+                if (err)
+                    console.log(err)
+                res.redirect('/notes')
+            })
+    } else {
+        res.redirect('/')
+    }
+})
+
 app.post("/update", (req, res) => {
     if (req.isAuthenticated()) {
         let itemId = req.body.itemId;
