@@ -11,10 +11,15 @@ Launched to public as PWA
 Features:
 
 User friendly UI
+
 Tips to get started easily
+
 Todo and completed sections seperated
+
 Can Add back to todo from completed section
+
 Delete the entry
+
 user login wirh google oauth and local email
 
 
