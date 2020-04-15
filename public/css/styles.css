@@ -149,6 +149,11 @@ h2 {
   margin: 10px 10px 0;
 }
 
+h2.completed-title{
+ padding:5px 0px;
+ margin: 0px 10px;
+}
+
 p {
   margin: 0 auto;
   padding: 10px;
@@ -216,7 +221,7 @@ button.delete-button {
   outline: none;
   color: red;
   background-color: transparent;
-  margin: 10px;
+  margin: 0 5px;
 }
 
 input[type='text'] {
