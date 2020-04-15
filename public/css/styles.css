@@ -118,6 +118,13 @@ h1.auth {
   justify-content: space-between;
 }
 
+.completed-list {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
 .items {
   display: flex;
   flex-direction: row;
@@ -198,6 +205,16 @@ button.delete-button {
   color: #fff; */
   border: none;
   outline: none;
+  background-color: transparent;
+  margin: 10px;
+}
+
+.delete-all-button {
+  font-size: 16px;
+  font-family: inherit;
+  border: none;
+  outline: none;
+  color: red;
   background-color: transparent;
   margin: 10px;
 }
