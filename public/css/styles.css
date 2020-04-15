@@ -225,6 +225,12 @@ button.delete-button {
   padding: 0px;
 }
 
+@media (min-width: 350px) {
+  .delete-all-button {
+     padding-right: 5px;
+   }
+}
+
 input[type='text'] {
   text-align: center;
   height: 60px;
