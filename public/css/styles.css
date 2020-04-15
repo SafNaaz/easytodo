@@ -221,7 +221,7 @@ button.delete-button {
   outline: none;
   color: red;
   background-color: transparent;
-  margin: 0 5px;
+  margin: 0 0px;
 }
 
 input[type='text'] {
